@@ -67,7 +67,7 @@ function CreateDeck({ deck, setDeck }) {
             name="name"
             required={true}
             onChange={nameChangeHandler}
-            defaultValue={deck.name}
+            value={deck.name}
           />
         )}
         <label className="my-3" htmlFor="desc">
@@ -90,7 +90,7 @@ function CreateDeck({ deck, setDeck }) {
             id="desc"
             required={true}
             onChange={descChangeHandler}
-            defaultValue={deck.description}
+            value={deck.description}
             rows="4"
           />
         )}

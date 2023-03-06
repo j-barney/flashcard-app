@@ -107,7 +107,7 @@ function CreateCard() {
               name="cardFront"
               required={true}
               onChange={cardFrontChangeHandler}
-              defaultValue={currentCard.front}
+              value={currentCard.front}
               rows="3"
             />
             <label className="my-3" htmlFor="desc">
@@ -119,7 +119,7 @@ function CreateCard() {
               className="form-control"
               required={true}
               onChange={cardBackChangeHandler}
-              defaultValue={currentCard.back}
+              value={currentCard.back}
               rows="3"
             />
           </div>
