@@ -44,21 +44,8 @@ function CardView({ deck }) {
   // }
   // //if there are less than 3 cards in the deck, displays message and button to add cards
 
-  if (deck.cards.length < 2) {
+  if (deck.cards.length > 2) {
     return (
-      <div>
-        <h3>Not enough cards.</h3>
-        <p>
-          You need at least 3 cards to study. There are {deck.cards.length + 1}
-          cards in this deck.
-        </p>
-        <Link to={`/decks/${deckId}/cards/new`}>
-          <button className="btn btn-primary">+ Add Cards</button>
-        </Link>
-      </div>
-    );
-  }
-  return (
     <div className="card">
       <div className="card-body">
         <h5 className="card-title">
@@ -103,6 +90,20 @@ function CardView({ deck }) {
       </div>
     </div>
   );
+        } else {
+          return (
+            <div>
+              <h3>Not enough cards.</h3>
+              <p>
+                You need at least 3 cards to study. There are {deck.cards.length + 1}
+                cards in this deck.
+              </p>
+              <Link to={`/decks/${deckId}/cards/new`}>
+                <button className="btn btn-primary">+ Add Cards</button>
+              </Link>
+            </div>
+          );
+        }
 }
 // }
 
