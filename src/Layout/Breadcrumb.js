@@ -10,7 +10,7 @@ function Breadcrumb({ link, linkName, name }) {
             <Link to="/">⌂ Home</Link>
           </li>
           <li className="breadcrumb-item active" aria-current="page">
-            <p>{name}</p>
+            {name}
           </li>
         </ol>
       </nav>
