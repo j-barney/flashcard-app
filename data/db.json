@@ -2,8 +2,8 @@
   "decks": [
     {
       "id": 1,
-      "deckName": "dasdasd",
-      "desc": "asdadsasda"
+      "name": "Rendering in React",
+      "description": "React's component structure allows for quickly building a complex web application that relies on DOM manipulation. "
     },
     {
       "name": "React Router",
@@ -14,18 +14,21 @@
   "cards": [
     {
       "id": 1,
-      "cardFront": "",
-      "cardBack": ""
+      "front": "Differentiate between Real DOM and Virtual DOM.",
+      "back": "Virtual DOM updates are faster but do not directly update the HTML",
+      "deckId": 1
     },
     {
       "id": 2,
-      "cardFront": "How do you modify the state of a different React component? k",
-      "cardBack": ""
+      "front": "How do you modify the state of a different React component?",
+      "back": "Not at all! State is visible to the component only.",
+      "deckId": 1
     },
     {
       "id": 3,
-      "cardFront": "How do you pass data 'down' to a React child componentkjnkjk?",
-      "cardBack": ""
+      "front": "How do you pass data 'down' to a React child component?",
+      "back": "As properties or props",
+      "deckId": 1
     },
     {
       "front": "What path will match the follow Route?\n<Route>\n  <NotFound />\n</Route>",
@@ -38,155 +41,6 @@
       "back": "Renders the first matching child <Route> ",
       "deckId": 2,
       "id": 5
-    },
-    {
-      "id": 6,
-      "cardFront": "das",
-      "cardBack": "das"
-    },
-    {
-      "id": 13,
-      "cardFront": "m, m",
-      "cardBack": "m ,"
-    },
-    {
-      "id": 14,
-      "cardFront": "eqwljndlew",
-      "cardBack": "dewldjdnwew"
-    },
-    {
-      "id": 15,
-      "cardFront": "dadsa",
-      "cardBack": "dasdsa"
-    },
-    {
-      "id": 16,
-      "cardFront": "fdfds",
-      "cardBack": "fsdfs"
-    },
-    {
-      "id": 17,
-      "cardFront": "ewe",
-      "cardBack": "qewqe"
-    },
-    {
-      "cardFront": "",
-      "cardBack": "",
-      "deckId": 1,
-      "id": 18
-    },
-    {
-      "cardFront": "",
-      "cardBack": "",
-      "deckId": 1,
-      "id": 19
-    },
-    {
-      "cardFront": "",
-      "cardBack": "",
-      "deckId": 1,
-      "id": 20
-    },
-    {
-      "cardFront": "",
-      "cardBack": "",
-      "deckId": 1,
-      "id": 21
-    },
-    {
-      "cardFront": "",
-      "cardBack": "",
-      "deckId": 1,
-      "id": 22
-    },
-    {
-      "cardFront": "",
-      "cardBack": "",
-      "deckId": 1,
-      "id": 23
-    },
-    {
-      "cardFront": "",
-      "cardBack": "",
-      "deckId": 1,
-      "id": 26
-    },
-    {
-      "cardFront": "",
-      "cardBack": "",
-      "deckId": 1,
-      "id": 27
-    },
-    {
-      "cardFront": "",
-      "cardBack": "",
-      "deckId": 1,
-      "id": 28
-    },
-    {
-      "id": 29,
-      "cardFront": "n k",
-      "cardBack": "khbi"
-    },
-    {
-      "cardFront": "",
-      "cardBack": "",
-      "deckId": 1,
-      "id": 30
-    },
-    {
-      "cardFront": "kjnkj",
-      "cardBack": "kllmkm",
-      "deckId": 1,
-      "id": 31
-    },
-    {
-      "cardFront": "x",
-      "cardBack": "xsa",
-      "deckId": 1,
-      "id": 32
-    },
-    {
-      "cardFront": "",
-      "cardBack": "",
-      "deckId": 1,
-      "id": 33
-    },
-    {
-      "cardFront": "",
-      "cardBack": "",
-      "deckId": 1,
-      "id": 34
-    },
-    {
-      "cardFront": "",
-      "cardBack": "",
-      "deckId": 1,
-      "id": 35
-    },
-    {
-      "cardFront": "",
-      "cardBack": "",
-      "deckId": 1,
-      "id": 36
-    },
-    {
-      "cardFront": "",
-      "cardBack": "",
-      "deckId": 1,
-      "id": 37
-    },
-    {
-      "cardFront": "",
-      "cardBack": "",
-      "deckId": 1,
-      "id": 38
-    },
-    {
-      "cardFront": "",
-      "cardBack": "",
-      "deckId": 1,
-      "id": 39
     }
   ]
 }
