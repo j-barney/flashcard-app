@@ -2,18 +2,17 @@ import React, { useState, useEffect } from "react";
 import Header from "./Header";
 import NotFound from "./NotFound";
 import StudyDeck from "../deckComponents/StudyDeck";
-import CreateDeck from "../deckComponents/CreateDeck";
-import CreateCard from "../cardComponents/CreateCard";
+import DeckForm from "../deckComponents/DeckForm";
+import CardForm from "../cardComponents/CardForm";
 import DeckView from "../deckComponents/DeckView";
 import Home from "./Home";
-import { useHistory, Switch, Route } from "react-router-dom";
+import { Switch, Route } from "react-router-dom";
 import { listDecks } from "../utils/api";
 
 function Layout() {
   const [decks, setDecks] = useState([]);
   const [deck, setDeck] = useState([]);
 
-  const history = useHistory();
 
   useEffect(() => {
     setDecks([]);
@@ -46,22 +45,22 @@ function Layout() {
             <Home decks={decks} />
           </Route>
           <Route exact path="/decks/new">
-            <CreateDeck />
+            <DeckForm />
           </Route>
           <Route path="/decks/:deckId/edit">
-            <CreateDeck deck={deck} setDeck={setDeck} />
+            <DeckForm deck={deck} setDeck={setDeck} />
           </Route>
           <Route path="/decks/:deckId/study">
             <StudyDeck />
           </Route>
           <Route exact path="/decks/:deckId">
-            <DeckView deck={deck} setDeck={setDeck} />
+            <DeckView deck={deck} setDeck={setDeck}  />
           </Route>
           <Route path="/decks/:deckId/cards/new">
-            <CreateCard />
+            <CardForm />
           </Route>
           <Route path="/decks/:deckId/cards/:cardId/edit">
-            <CreateCard />
+            <CardForm />
           </Route>
           <Route>
             <NotFound />

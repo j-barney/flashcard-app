@@ -1,30 +1,49 @@
 import React, { useState, useEffect } from "react";
 import { Link, useHistory, useParams } from "react-router-dom";
 import Breadcrumb from "../Layout/Breadcrumb";
-import { createDeck, readDeck } from "../utils/api";
+import { createDeck, readDeck, updateDeck } from "../utils/api";
 
-function CreateDeck({ deck, setDeck }) {
-  const name = "Create Deck";
+function DeckForm({ deck, setDeck}) {
   const [deckName, setDeckName] = useState("");
   const [desc, setDesc] = useState("");
   const { deckId } = useParams();
+  const history = useHistory();
 
   const nameChangeHandler = ({ target }) => setDeckName(target.value);
   const descChangeHandler = ({ target }) => setDesc(target.value);
 
   const submitHandler = (event) => {
-    event.preventDefault();
-    const newDeck = {
-      name,
-      desc,
-    };
-    if (deckId > 0) {
-      updateDeck(newDeck);
+    if (deckId) {
+      const updatedDeck = {
+        id: deckId,
+        name: deckName,
+        description: desc,
+      };
+      async function deckUpdate() {
+        try {
+          await updateDeck(updatedDeck);
+        } catch (error) {
+          throw error;
+        }
+      }
+      deckUpdate();
     } else {
-      createDeck(newDeck);
+      const newDeck = {
+        name: deckName,
+        description: desc,
+      };
+
+      async function deckCreate() {
+        try {
+          await createDeck(newDeck);
+        } catch (error) {
+          throw error;
+        }
+      }
+      deckCreate();
     }
-    setName("");
-    setDesc("");
+    
+    history.push("/")
   };
 
   useEffect(() => {
@@ -45,7 +64,7 @@ function CreateDeck({ deck, setDeck }) {
         <Breadcrumb name={"Edit Deck"} />
       )}
       {!deckId ? <h3>Create Deck</h3> : <h3>Edit Deck</h3>}
-      <form className="form-group" name="createDeck" onSubmit={submitHandler}>
+      <form className="form-group" name="createDeck" >
         <label className="my-3" htmlFor="name">
           Name
         </label>
@@ -53,8 +72,8 @@ function CreateDeck({ deck, setDeck }) {
           <input
             className="form-control"
             type="text"
-            id="name"
-            name="name"
+            id="deckName"
+            name="deckName"
             required={true}
             onChange={nameChangeHandler}
             placeholder="Deck Name"
@@ -63,8 +82,8 @@ function CreateDeck({ deck, setDeck }) {
           <input
             className="form-control"
             type="text"
-            id="name"
-            name="name"
+            id="deckName"
+            name="deckName"
             required={true}
             onChange={nameChangeHandler}
             defaultValue={deck.name}
@@ -98,16 +117,16 @@ function CreateDeck({ deck, setDeck }) {
           <div className="row">
             <div className="flex btn-group">
               <div className="my-3">
-                <Link to="/">
-                  <button className="btn btn-secondary">Cancel</button>
-                </Link>
+                {deckId ? (<Link to={`/decks/${deckId}`}>
+                  <button type="button" className="btn btn-secondary">Cancel</button>
+                </Link>) : (<Link to={"/"}>
+                  <button type="button" className="btn btn-secondary">Cancel</button>
+                </Link>)}
               </div>
               <div className="my-3 px-2">
-                <Link to="/decks">
-                  <button className="btn btn-primary" type="submit">
+                  <button className="btn btn-primary" onClick={submitHandler} type="submit">
                     Submit
                   </button>
-                </Link>
               </div>
             </div>
           </div>
@@ -117,7 +136,7 @@ function CreateDeck({ deck, setDeck }) {
   );
 }
 
-export default CreateDeck;
+export default DeckForm;
 
 /* TODO:
         breadcrumb with home and create deck✓

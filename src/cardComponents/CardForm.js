@@ -1,13 +1,14 @@
 import React, { useEffect, useState } from "react";
-import { useParams, Link } from "react-router-dom";
+import { useParams, Link, useHistory } from "react-router-dom";
 import Breadcrumb from "../Layout/Breadcrumb";
 import { createCard, readCard, readDeck, updateCard } from "../utils/api";
 
-function CreateCard() {
+function CardForm() {
   const [cardFront, setCardFront] = useState("");
   const [cardBack, setCardBack] = useState("");
   const [currentDeck, setCurrentDeck] = useState([]);
   const [currentCard, setCurrentCard] = useState([]);
+  const history = useHistory();
 
   const { cardId, deckId } = useParams();
 
@@ -31,24 +32,41 @@ function CreateCard() {
     loadDeck();
   }, []);
 
-  console.log(currentCard);
-
   const cardFrontChangeHandler = ({ target }) => setCardFront(target.value);
   const cardBackChangeHandler = ({ target }) => setCardBack(target.value);
 
   const submitHandler = (event) => {
-    event.preventDefault();
-    const newCard = {
-      cardFront,
-      cardBack,
-    };
     if (cardId) {
-      updateCard(newCard);
+      const updatedCard = {
+        id: cardId,
+        front: cardFront,
+        back: cardBack,
+        deckId: currentDeck.id,
+      };
+      async function cardUpdate() {
+        try {
+          await updateCard(updatedCard);
+        } catch (error) {
+          throw error;
+        }
+      }
+      cardUpdate();
     } else {
-      createCard(newCard);
+      const newCard = {
+        front: cardFront,
+        back: cardBack,
+        deckId: currentDeck.id,
+      };
+      async function cardCreate() {
+        try {
+          await createCard(deckId, newCard);
+        } catch (error) {
+          throw error;
+        }
+      }
+      cardCreate();
     }
-    setCardFront("");
-    setCardBack("");
+    history.push(`/decks/${deckId}`);
   };
 
   return (
@@ -71,7 +89,7 @@ function CreateCard() {
       ) : (
         <h3>{currentDeck.name} : Edit Card</h3>
       )}
-      <form className="form-group" name="createCard" onSubmit={submitHandler}>
+      <form className="form-group" name="createCard">
         <label className="my-3" htmlFor="cardFront">
           Front
         </label>
@@ -130,11 +148,13 @@ function CreateCard() {
             <Link to="/">
               <button className="btn btn-secondary">Done</button>
             </Link>
-            <Link to={`/decks/${deckId}`}>
-              <button className="btn btn-primary mx-2" type="submit">
-                Submit
-              </button>
-            </Link>
+            <button
+              className="btn btn-primary mx-2"
+              type="submit"
+              onClick={submitHandler}
+            >
+              Save
+            </button>
           </div>
         </div>
       </form>
@@ -142,7 +162,7 @@ function CreateCard() {
   );
 }
 
-export default CreateCard;
+export default CardForm;
 
 /*TODO:
         breadcrumb with home, deck name and "add card"

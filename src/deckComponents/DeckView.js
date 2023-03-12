@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { useParams, Link, useRouteMatch } from "react-router-dom";
+import { useParams, Link, useRouteMatch, useHistory } from "react-router-dom";
 import Breadcrumb from "../Layout/Breadcrumb";
 import { deleteDeck, readDeck } from "../utils/api";
 import CardList from "../cardComponents/CardList";
@@ -8,6 +8,7 @@ import NotFound from "../Layout/NotFound";
 function DeckView({ deck, setDeck }) {
   const { deckId } = useParams();
   const { url, path } = useRouteMatch();
+  const history = useHistory();
 
   useEffect(() => {
     async function loadDeck() {
@@ -17,7 +18,7 @@ function DeckView({ deck, setDeck }) {
       }
     }
     loadDeck();
-  }, [deckId]);
+  }, []);
 
   const deleteHandler = async () => {
     const confirm = window.confirm(

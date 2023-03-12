@@ -14,18 +14,15 @@ function DeckPreview({ deck }) {
   //       };
 
   const deleteHandler = async () => {
-    if (
-      (confirm = window.confirm(
-        "Delete this deck?\n\nYou will not be able to recover it."
-      ))
-    ) {
+    if (confirm = window.confirm("Delete this deck?\n\nYou will not be able to recover it."
+    )) {
       await deleteDeck(deck.id);
       window.location.reload(true);
     }
   };
 
   return (
-    <div className="card w-75">
+    <div className="card w-75 m-3">
       <div className="card-body">
         <div className="d-flex justify-content-between">
           <h5 className="card-title">{deck.name}</h5>

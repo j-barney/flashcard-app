@@ -17,7 +17,7 @@ function StudyDeck() {
       }
     }
     loadDeck();
-  }, [deckId]);
+  }, []);
 
   if (studyDeck.id) {
     return (

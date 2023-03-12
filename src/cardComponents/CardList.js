@@ -18,7 +18,7 @@ function CardList({ deck }) {
   return (
     <div className="container">
       {deck.cards.map((card) => (
-        <div className="card">
+        <div className="card m-3">
           <div className="card-body">
             <p className="card-text">{card.front}</p>
             <h6 className="card-text ">{card.back}</h6>

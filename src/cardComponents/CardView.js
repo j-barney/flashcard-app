@@ -39,9 +39,8 @@ function CardView({ deck }) {
   };
 
   // //if there are at least 3 cards in the deck, displays card and buttons
-  // if (deck.cards.length > 2) {
 
-  // }
+  
   // //if there are less than 3 cards in the deck, displays message and button to add cards
 
   if (deck.cards.length > 2) {
