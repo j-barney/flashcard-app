@@ -1,6 +1,5 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { useHistory, useParams, Link } from "react-router-dom";
-import { readCard } from "../utils/api";
 
 function CardView({ deck }) {
   const [index, setIndex] = useState(0);

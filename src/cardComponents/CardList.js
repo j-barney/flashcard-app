@@ -1,17 +1,16 @@
 import React from "react";
-import { Link, useHistory, useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import { deleteCard } from "../utils/api";
 
-function CardList({ deck }) {
+function CardList({ deck, setCardLoader, cardLoader }) {
   const { deckId } = useParams();
-  const history = useHistory();
 
   const cardDeleteHandler = async (card) => {
     if (
       window.confirm("Delete this card?\n\nYou will not be able to recover it.")
     ) {
       await deleteCard(card.id);
-      window.location.reload(true);
+      setCardLoader(!cardLoader)
     }
   };
 

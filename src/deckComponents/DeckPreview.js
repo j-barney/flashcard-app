@@ -1,10 +1,9 @@
 import React from "react";
-import { Link, useHistory, useRouteMatch } from "react-router-dom";
+import { Link, } from "react-router-dom";
 import { deleteDeck } from "../utils/api";
 
-function DeckPreview({ deck }) {
+function DeckPreview({ deck, setDeckLoader, deckLoader }) {
   const cards = deck.cards;
-  const history = useHistory();
   //     const confirmBox = async () => {
   //         if (
   //           confirm("Delete this deck?\nYou will not be able to recover it.") == true
@@ -14,11 +13,11 @@ function DeckPreview({ deck }) {
   //       };
 
   const deleteHandler = async () => {
-    if (confirm = window.confirm("Delete this deck?\n\nYou will not be able to recover it."
+    if (window.confirm("Delete this deck?\n\nYou will not be able to recover it."
     )) {
       await deleteDeck(deck.id);
-      window.location.reload(true);
-    }
+      setDeckLoader(!deckLoader)
+    } 
   };
 
   return (

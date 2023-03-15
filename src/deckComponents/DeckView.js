@@ -1,13 +1,14 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useParams, Link, useRouteMatch, useHistory } from "react-router-dom";
 import Breadcrumb from "../Layout/Breadcrumb";
 import { deleteDeck, readDeck } from "../utils/api";
 import CardList from "../cardComponents/CardList";
 import NotFound from "../Layout/NotFound";
 
-function DeckView({ deck, setDeck }) {
+function DeckView({ deck, setDeck, setDeckLoader, deckLoader }) {
+  const [cardLoader, setCardLoader] = useState(false);
   const { deckId } = useParams();
-  const { url, path } = useRouteMatch();
+  const { url } = useRouteMatch();
   const history = useHistory();
 
   useEffect(() => {
@@ -18,7 +19,7 @@ function DeckView({ deck, setDeck }) {
       }
     }
     loadDeck();
-  }, []);
+  }, [deckId, setDeck, cardLoader]);
 
   const deleteHandler = async () => {
     const confirm = window.confirm(
@@ -26,6 +27,7 @@ function DeckView({ deck, setDeck }) {
     );
     if (confirm) {
       await deleteDeck(deckId);
+      setDeckLoader(!deckLoader)
       history.push("/");
     }
   };
@@ -60,7 +62,7 @@ function DeckView({ deck, setDeck }) {
           🗑️
         </button></div>
         <h4 className="mb-3">Cards</h4>
-        <CardList deck={deck} />
+        <CardList deck={deck} cardLoader={cardLoader} setCardLoader={setCardLoader}/>
       </div>
     );
   }

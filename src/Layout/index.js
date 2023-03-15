@@ -12,6 +12,7 @@ import { listDecks } from "../utils/api";
 function Layout() {
   const [decks, setDecks] = useState([]);
   const [deck, setDeck] = useState([]);
+  const [deckLoader, setDeckLoader] = useState(false);
 
 
   useEffect(() => {
@@ -34,7 +35,7 @@ function Layout() {
     loadDecks();
 
     return () => abortController.abort();
-  }, []);
+  }, [deckLoader]);
 
   return (
     <div>
@@ -42,25 +43,25 @@ function Layout() {
       <div className="container">
         <Switch>
           <Route exact path="/">
-            <Home decks={decks} />
+            <Home decks={decks} setDeckLoader={setDeckLoader} deckLoader={deckLoader} />
           </Route>
           <Route exact path="/decks/new">
-            <DeckForm />
+            <DeckForm deck={deck} setDeck={setDeck} setDeckLoader={setDeckLoader} deckLoader={deckLoader}/>
           </Route>
           <Route path="/decks/:deckId/edit">
-            <DeckForm deck={deck} setDeck={setDeck} />
+            <DeckForm deck={deck} setDeck={setDeck} setDeckLoader={setDeckLoader} deckLoader={deckLoader}/>
           </Route>
           <Route path="/decks/:deckId/study">
             <StudyDeck />
           </Route>
           <Route exact path="/decks/:deckId">
-            <DeckView deck={deck} setDeck={setDeck}  />
+            <DeckView deck={deck} setDeck={setDeck} setDeckLoader={setDeckLoader} deckLoader={deckLoader}  />
           </Route>
           <Route path="/decks/:deckId/cards/new">
-            <CardForm />
+            <CardForm setDeckLoader={setDeckLoader} deckLoader={deckLoader}/>
           </Route>
           <Route path="/decks/:deckId/cards/:cardId/edit">
-            <CardForm />
+            <CardForm setDeckLoader={setDeckLoader} deckLoader={deckLoader}/>
           </Route>
           <Route>
             <NotFound />

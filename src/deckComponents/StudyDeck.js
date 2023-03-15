@@ -17,7 +17,7 @@ function StudyDeck() {
       }
     }
     loadDeck();
-  }, []);
+  }, [deckId]);
 
   if (studyDeck.id) {
     return (
@@ -27,7 +27,7 @@ function StudyDeck() {
           linkName={studyDeck.name}
           name={"Study"}
         />
-        <h2 className="mb-3">Study: {studyDeck.name}</h2>
+        <h2 className="mb-3">{studyDeck.name} : Study</h2>
         <CardView deck={studyDeck} />
       </div>
     );

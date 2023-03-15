@@ -1,9 +1,8 @@
 import React from "react";
-import Header from "./Header";
 import DeckList from "../deckComponents/DeckList";
-import { Route, Link } from "react-router-dom";
+import { Link } from "react-router-dom";
 
-function Home({ decks }) {
+function Home({ decks, setDeckLoader, deckLoader }) {
   return (
     <div>
       <div className="container">
@@ -13,7 +12,7 @@ function Home({ decks }) {
           </button>
         </Link>
       </div>
-      <DeckList decks={decks} />
+      <DeckList decks={decks} setDeckLoader={setDeckLoader} deckLoader={deckLoader} />
     </div>
   );
 }

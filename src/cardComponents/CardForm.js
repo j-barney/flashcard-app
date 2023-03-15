@@ -3,11 +3,10 @@ import { useParams, Link, useHistory } from "react-router-dom";
 import Breadcrumb from "../Layout/Breadcrumb";
 import { createCard, readCard, readDeck, updateCard } from "../utils/api";
 
-function CardForm() {
+function CardForm({setDeckLoader, deckLoader}) {
   const [cardFront, setCardFront] = useState("");
   const [cardBack, setCardBack] = useState("");
   const [currentDeck, setCurrentDeck] = useState([]);
-  const [currentCard, setCurrentCard] = useState([]);
   const history = useHistory();
 
   const { cardId, deckId } = useParams();
@@ -16,11 +15,12 @@ function CardForm() {
     async function loadCard() {
       if (cardId) {
         const currentCardLoad = await readCard(cardId);
-        setCurrentCard(() => currentCardLoad);
+        setCardFront(currentCardLoad.front);
+        setCardBack(currentCardLoad.back)
       }
     }
     loadCard();
-  }, []);
+  }, [cardId]);
 
   useEffect(() => {
     async function loadDeck() {
@@ -30,7 +30,7 @@ function CardForm() {
       }
     }
     loadDeck();
-  }, []);
+  }, [deckId]);
 
   const cardFrontChangeHandler = ({ target }) => setCardFront(target.value);
   const cardBackChangeHandler = ({ target }) => setCardBack(target.value);
@@ -51,6 +51,7 @@ function CardForm() {
         }
       }
       cardUpdate();
+      history.push(`/decks/${deckId}`);
     } else {
       const newCard = {
         front: cardFront,
@@ -65,8 +66,10 @@ function CardForm() {
         }
       }
       cardCreate();
+      setCardFront("");
+      setCardBack("");
     }
-    history.push(`/decks/${deckId}`);
+    setDeckLoader(!deckLoader)
   };
 
   return (
@@ -125,7 +128,7 @@ function CardForm() {
               name="cardFront"
               required={true}
               onChange={cardFrontChangeHandler}
-              defaultValue={currentCard.front}
+              value={cardFront}
               rows="3"
             />
             <label className="my-3" htmlFor="desc">
@@ -137,7 +140,7 @@ function CardForm() {
               className="form-control"
               required={true}
               onChange={cardBackChangeHandler}
-              defaultValue={currentCard.back}
+              value={cardBack}
               rows="3"
             />
           </div>
@@ -164,12 +167,4 @@ function CardForm() {
 
 export default CardForm;
 
-/*TODO:
-        breadcrumb with home, deck name and "add card"
-        form with front and back textareas
-        done and save button
-            done should path to deck screen
-            save should create new card and associate it with the related deck, then empty all fields
-        should call readDeck function
-        should prefill information if cardId is provided for editcard
-*/
+

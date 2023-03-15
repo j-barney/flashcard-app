@@ -3,21 +3,34 @@ import { Link, useHistory, useParams } from "react-router-dom";
 import Breadcrumb from "../Layout/Breadcrumb";
 import { createDeck, readDeck, updateDeck } from "../utils/api";
 
-function DeckForm({ deck, setDeck}) {
+function DeckForm({ deck, setDeck, setDeckLoader, deckLoader}) {
   const [deckName, setDeckName] = useState("");
-  const [desc, setDesc] = useState("");
+  const [deckDescription, setDeckDescription] = useState("");
   const { deckId } = useParams();
   const history = useHistory();
 
   const nameChangeHandler = ({ target }) => setDeckName(target.value);
-  const descChangeHandler = ({ target }) => setDesc(target.value);
+  const descChangeHandler = ({ target }) => setDeckDescription(target.value);
+
+  useEffect(() => {
+    async function loadDeck() {
+      if (deckId) {
+        const currentDeck = await readDeck(deckId);
+        setDeckName(currentDeck.name);
+        setDeckDescription(currentDeck.description);
+      }
+    }
+    loadDeck();
+  }, [deckId]);
 
   const submitHandler = (event) => {
+    event.preventDefault();
+
     if (deckId) {
       const updatedDeck = {
         id: deckId,
         name: deckName,
-        description: desc,
+        description: deckDescription,
       };
       async function deckUpdate() {
         try {
@@ -30,31 +43,25 @@ function DeckForm({ deck, setDeck}) {
     } else {
       const newDeck = {
         name: deckName,
-        description: desc,
+        description: deckDescription,
       };
 
       async function deckCreate() {
         try {
-          await createDeck(newDeck);
+          const completedDeck = await createDeck(newDeck);
+          history.push(`/decks/${completedDeck.id}`)
         } catch (error) {
           throw error;
         }
       }
       deckCreate();
     }
-    
-    history.push("/")
+    history.push('/')
+    setDeckLoader(!deckLoader)
   };
 
-  useEffect(() => {
-    async function loadDeck() {
-      if (deckId) {
-        const currentDeck = await readDeck(deckId);
-        setDeck(() => currentDeck);
-      }
-    }
-    loadDeck();
-  }, []);
+
+
 
   return (
     <div>
@@ -86,7 +93,7 @@ function DeckForm({ deck, setDeck}) {
             name="deckName"
             required={true}
             onChange={nameChangeHandler}
-            defaultValue={deck.name}
+            value={deckName}
           />
         )}
         <label className="my-3" htmlFor="desc">
@@ -109,7 +116,7 @@ function DeckForm({ deck, setDeck}) {
             id="desc"
             required={true}
             onChange={descChangeHandler}
-            defaultValue={deck.description}
+            value={deckDescription}
             rows="4"
           />
         )}

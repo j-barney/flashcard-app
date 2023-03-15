@@ -1,12 +1,11 @@
 import React from "react";
-import { listDecks } from "../utils/api";
 import DeckPreview from "./DeckPreview";
 
-function DeckList({ decks }) {
+function DeckList({ decks, setDeckLoader, deckLoader }) {
   return (
     <div>
       {decks.map((deck, index) => (
-        <DeckPreview deck={deck} />
+        <DeckPreview deck={deck} setDeckLoader={setDeckLoader} deckLoader={deckLoader} />
       ))}
     </div>
   );
